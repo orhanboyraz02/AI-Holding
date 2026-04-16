@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Anadolu Growth OS</title>
+
+<style>
+body {margin:0;font-family:Arial;background:#0f172a;color:white;}
+nav {display:flex;gap:8px;padding:10px;background:#1e293b;flex-wrap:wrap;}
+nav a {color:white;text-decoration:none;background:#334155;padding:8px;border-radius:5px;}
+
+section {display:none;padding:20px;}
+.active {display:block;}
+
+.card {background:#1e293b;padding:15px;margin:10px 0;border-radius:10px;}
+
+input,button {padding:10px;width:100%;margin:5px 0;}
+
+button {background:#22c55e;color:white;border:none;cursor:pointer;}
+
+footer {
+position:fixed;bottom:0;width:100%;
+background:#0b1220;padding:10px;text-align:center;color:#888;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+<a href="#home">Home</a>
+<a href="#fire">FIRE</a>
+<a href="#portfolio">Portfolio</a>
+<a href="#market">Market</a>
+<a href="#consulting">Consulting</a>
+<a href="#academy">Academy</a>
+<a href="#admin">Admin</a>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="active">
+<h1>🚀 Anadolu Growth OS</h1>
+
+<div class="card">
+<p>Kullanıcı: 1.240</p>
+<p>MRR: 18.500₺</p>
+<p>Growth: %12</p>
+</div>
+</section>
+
+<!-- FIRE -->
+<section id="fire">
+<h2>🔥 FIRE Hesaplama</h2>
+
+<div class="card">
+<input id="income" placeholder="Gelir">
+<input id="expense" placeholder="Gider">
+<input id="savings" placeholder="Birikim">
+
+<button onclick="calcFire()">Hesapla</button>
+<p id="fireOut"></p>
+</div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+<h2>💼 Portfolio</h2>
+
+<div class="card">
+<input id="cash" placeholder="Nakit">
+<input id="stocks" placeholder="Hisse">
+<input id="crypto" placeholder="Kripto">
+
+<button onclick="calcPortfolio()">Hesapla</button>
+<p id="portOut"></p>
+</div>
+</section>
+
+<!-- MARKET -->
+<section id="market">
+<h2>🛒 Market</h2>
+
+<div class="card">
+<p>FIRE Premium Plan - 299₺</p>
+<button>Satın Al</button>
+</div>
+
+<div class="card">
+<p>Investment Pack - 499₺</p>
+<button>Satın Al</button>
+</div>
+</section>
+
+<!-- CONSULTING -->
+<section id="consulting">
+<h2>🧠 Danışmanlık</h2>
+
+<div class="card">
+<p>1:1 FIRE Coaching</p>
+<p>10.000₺ / paket</p>
+<button>Randevu Al</button>
+</div>
+</section>
+
+<!-- ACADEMY -->
+<section id="academy">
+<h2>🎓 Academy</h2>
+
+<div class="card">
+<p>Finansal Okuryazarlık</p>
+<p>Gelir Artırma Sistemi</p>
+<p>Yatırım Stratejisi</p>
+</div>
+</section>
+
+<!-- ADMIN -->
+<section id="admin">
+<h2>🔐 Admin Panel</h2>
+
+<input id="pass" type="password" placeholder="Şifre">
+<button onclick="login()">Giriş</button>
+
+<div id="adminPanel"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+Anadolu Network OS | SaaS Growth System © 2026
+</footer>
+
+<script>
+
+// ROUTER (sayfa sistemi)
+function router(){
+  let hash = location.hash || "#home";
+
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+  document.querySelector(hash).classList.add("active");
+}
+window.onhashchange = router;
+router();
+
+
+// FIRE
+function calcFire(){
+  let i = +income.value;
+  let e = +expense.value;
+  let s = +savings.value;
+
+  let target = e * 12 * 25;
+  let money = s;
+  let year = 0;
+
+  while(money < target){
+    money = money * 1.07 + (i - e) * 12;
+    year++;
+  }
+
+  fireOut.innerText = "FIRE Süresi: " + year + " yıl";
+}
+
+
+// PORTFOLIO
+function calcPortfolio(){
+  let total = +cash.value + +stocks.value + +crypto.value;
+  portOut.innerText = "Toplam Varlık: " + total;
+}
+
+
+// ADMIN (ŞİFRE KORUMA)
+function login(){
+  let p = pass.value;
+
+  if(p === "1234"){
+    adminPanel.innerHTML = `
+      <div class="card">
+        <p>👥 Kullanıcı: 1240</p>
+        <p>💰 Gelir: 18.500₺</p>
+        <p>📈 Conversion: %4.2</p>
+      </div>
+    `;
+  } else {
+    adminPanel.innerHTML = "<p>❌ Hatalı şifre</p>";
+  }
+}
+
+</script>
+
+</body>
+</html>
